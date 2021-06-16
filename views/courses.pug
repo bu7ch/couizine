@@ -1,0 +1,6 @@
+extends layout
+block content
+  h2 Les Cours de Couizine
+  each item in oCourses 
+    h4= item.title
+    span= item.cost
