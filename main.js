@@ -37,6 +37,7 @@ app.get("/courses", homeController.showCourses);
 app.get("/contact", homeController.showContact);
 app.get("/thanks", homeController.showThanks);
 app.get("/subscribers/", subscriberControlller.getAllSubscribers)
+app.get("/subscribers/new", subscriberControlller.subscriberPage)
 app.post("/subscribers/new", subscriberControlller.postSubscribers)
 
 app.use(errorController.respondNoResourceFound);

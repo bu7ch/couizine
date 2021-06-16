@@ -8,10 +8,13 @@ exports.getAllSubscribers = (req, res, next) => {
   })
 }
 
+exports.subscriberPage = (req, res) => {
+  res.render('postSub')
+}
 exports.postSubscribers = (req, res, next) => {
   let newSubscriber = new Subscriber(req.body)
   newSubscriber.save((err, subscriber) => {
     if (err) next(err);
-    res.json(subscriber)
+    res.render('thanks')
   })
 }
