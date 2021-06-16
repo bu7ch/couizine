@@ -1,0 +1,16 @@
+extends layout
+block content
+  h2 La liste des Utilisateurs 
+
+  table
+    thead
+      tr
+        th Nom
+        th Email 
+        th Code Postal 
+    tbody
+    each user in users 
+      tr
+        td= user.fullname 
+        td= user.email
+        td= user.zipCode

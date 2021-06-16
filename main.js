@@ -12,6 +12,7 @@ mongoose.connect(dbURL+dbName, {useNewUrlParser: true, useUnifiedTopology: true}
 const homeController = require("./controllers/homeController");
 const errorController = require("./controllers/errorController");
 const subscriberControlller = require("./controllers/subscriberController")
+const userController = require("./controllers/userController")
 const port = 4000;
 
 app.use((req, res, next) => {
@@ -39,6 +40,7 @@ app.get("/thanks", homeController.showThanks);
 app.get("/subscribers/", subscriberControlller.getAllSubscribers)
 app.get("/subscribers/new", subscriberControlller.subscriberPage)
 app.post("/subscribers/new", subscriberControlller.postSubscribers)
+app.get('/users', userController.index)
 
 app.use(errorController.respondNoResourceFound);
 
