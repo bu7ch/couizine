@@ -1,8 +1,17 @@
 const express = require("express");
 const app = express();
+const mongoose = require("mongoose")
+dbURL = "mongodb://localhost/"
+dbName = 'couizine_db'
+
+mongoose.Promise = global.Promise
+mongoose.connect(dbURL+dbName, {useNewUrlParser: true, useUnifiedTopology: true})
+  .then(() => console.log(`MongoDB connected !!`))
+  .catch(err => console.error(err))
 
 const homeController = require("./controllers/homeController");
 const errorController = require("./controllers/errorController");
+const subscriberControlller = require("./controllers/subscriberController")
 const port = 4000;
 
 app.use((req, res, next) => {
@@ -27,6 +36,8 @@ app.get("/", (req, res) => {
 app.get("/courses", homeController.showCourses);
 app.get("/contact", homeController.showContact);
 app.get("/thanks", homeController.showThanks);
+app.get("/subscribers/", subscriberControlller.getAllSubscribers)
+app.post("/subscribers/new", subscriberControlller.postSubscribers)
 
 app.use(errorController.respondNoResourceFound);
 
