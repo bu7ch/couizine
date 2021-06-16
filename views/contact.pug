@@ -1,0 +1,9 @@
+extends layout 
+block content
+  h2 Page de contact 
+    form(action="/contact", method="POST")
+      label Nom 
+      input(type="text", name="name")
+      label email 
+      input(type="email", name="email")
+      input(type="button", value="Envoyer")

@@ -2,7 +2,7 @@ const express = require("express");
 const app = express();
 
 const homeController = require("./controllers/homeController");
-const errorController = require('./controllers/errorController')
+const errorController = require("./controllers/errorController");
 const port = 4000;
 
 app.use((req, res, next) => {
@@ -20,17 +20,15 @@ app.post("/", (req, res) => {
 });
 
 app.get("/", (req, res) => {
-  res.send("Hello, Universe!");
+  res.send("Bienvenue dans notre couizine");
 });
-app.get("/contacts", (req, res) => {
-  res.send("Les informations ont bien été envoyés avec succès");
-});
-app.get("/name/:myName", homeController.respondWithName);
-app.use(errorController.respondNoResourceFound)
 
-// console.log(req.params)
-// console.log(req.body)
-// console.log(req.url)
-// console.log(req.query)
+app.get("/courses", homeController.showCourses);
+app.get("/contact", homeController.showContact);
+app.get("/thanks", homeController.showThanks);
 
-app.listen(port, () => console.log(`Le seveur ecoute sur le port :${port}`));
+app.use(errorController.respondNoResourceFound);
+
+app.listen(port, () =>
+  console.log(`Le serveur tourne sur http://localhost:${port}`)
+);
