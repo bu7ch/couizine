@@ -24,4 +24,4 @@ userSchema.virtual("fullname").get(function () {
   return `${this.name.first} ${this.name.last}`;
 });
 
-mmodule.exports = mongoose.model("User", userSchema);
+module.exports = mongoose.model("User", userSchema);

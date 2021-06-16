@@ -41,6 +41,8 @@ app.get("/subscribers/", subscriberControlller.getAllSubscribers)
 app.get("/subscribers/new", subscriberControlller.subscriberPage)
 app.post("/subscribers/new", subscriberControlller.postSubscribers)
 app.get('/users', userController.index)
+app.get('/users/new', userController.new)
+app.post('/users/create', userController.create)
 
 app.use(errorController.respondNoResourceFound);
 
