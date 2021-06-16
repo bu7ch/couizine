@@ -24,7 +24,7 @@ app.get("/", (req, res) => {
 app.get("/contacts", (req, res) => {
   res.send("Les informations ont bien été envoyés avec succès");
 });
-app.get("/name", homeController.respondWithName);
+app.get("/name/:myName", homeController.respondWithName);
 
 // console.log(req.params)
 // console.log(req.body)
