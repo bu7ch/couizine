@@ -3,6 +3,19 @@ const app = express();
 
 const port = 4000;
 
+app.use((req, res, next) => {
+  console.log(`l'url est : ${req.url}`);
+  next();
+});
+app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
+
+app.post("/", (req, res) => {
+  console.log(req.body);
+  console.log(req.query);
+  res.send("La méthode POST à fonctionnée!");
+});
+
 app.get("/", (req, res) => {
   res.send("Hello, Universe!");
 });
@@ -11,11 +24,6 @@ app.get("/contacts", (req, res) => {
 });
 app.get("/items/:legumes", (req, res) => {
   res.send(req.params.legumes);
-});
-
-app.use((req, res, next) => {
-  console.log(`la requête est donné : ${req.url}`);
-  next();
 });
 
 // console.log(req.params)
