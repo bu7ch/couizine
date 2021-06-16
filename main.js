@@ -1,6 +1,7 @@
 const express = require("express");
 const app = express();
 
+const homeController = require("./controllers/homeController")
 const port = 4000;
 
 app.use((req, res, next) => {
@@ -22,9 +23,7 @@ app.get("/", (req, res) => {
 app.get("/contacts", (req, res) => {
   res.send("Les informations ont bien été envoyés avec succès");
 });
-app.get("/items/:legumes", (req, res) => {
-  res.send(req.params.legumes);
-});
+app.get("/items/:legumes",homeController.sendReqParams);
 
 // console.log(req.params)
 // console.log(req.body)
