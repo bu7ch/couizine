@@ -11,6 +11,8 @@ block content
     tbody
     each user in users 
       tr
-        td= user.fullname 
+        td
+          a(href=`/users/${user._id}`)
+            | #{user.fullname}
         td= user.email
         td= user.zipCode
