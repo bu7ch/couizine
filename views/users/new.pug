@@ -1,0 +1,15 @@
+extends ../layout
+block content
+  h1 Nouvel Utilisateur 
+  form(action="/users/create", method="POST")
+    label(for="inputFirstName")
+    input(type="text", name="first" id="inputFirstName" placeholder="First name")
+    label(for="inputLastName")
+    input(type="text", name="last" id="inputLastName" placeholder="last name")
+    label(for="inputEmail")
+    input(type="email", name="email" id="inputEmail" placeholder="email")
+    label(for="inputPassword")
+    input(type="password", name="password" id="inputPassword" placeholder="Password")
+    label(for="inputZipCode")
+    input(type="text", name="zipCode" id="inputZipCode" placeholder="ZipCode")
+    input(type="submit", value="Envoyer")
