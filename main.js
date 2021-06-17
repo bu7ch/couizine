@@ -4,6 +4,7 @@ const mongoose = require("mongoose")
 dbURL = "mongodb://localhost/"
 dbName = 'couizine_db'
 
+const passport = require('passport')
 mongoose.Promise = global.Promise
 mongoose.connect(dbURL+dbName, {useNewUrlParser: true, useUnifiedTopology: true})
   .then(() => console.log(`MongoDB connected !!`))
@@ -14,7 +15,14 @@ const errorController = require("./controllers/errorController");
 const subscriberControlller = require("./controllers/subscriberController")
 const userController = require("./controllers/userController")
 const port = 4000;
+const User = require('./models/user')
 
+passport.use(User.createStrategy());
+passport.serializeUser(User.serializeUser)
+passport.deserializeUser(User.deserializeUser)
+
+app.use(passport.initialize());
+app.use(passport.session());
 app.use((req, res, next) => {
   console.log(`l'url est : ${req.url}`);
   next();

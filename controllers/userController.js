@@ -1,4 +1,17 @@
 const User = require("../models/user");
+passport = require("passport");
+
+getUserParams = body => {
+  return {
+    name: {
+      first: body.first,
+      last: body.last
+    },
+    email: body.email,
+    password: body.password,
+    zipCode: body.zipCode
+  };
+}
 exports.index = (req, res) => {
   User.find({})
     .then((users) => {
@@ -15,15 +28,18 @@ exports.new = (req, res) => {
 };
 
 exports.create = (req, res, next) => {
-  let userParams = new User({
-    name: {
-      first: req.body.first,
-      last: req.body.last,
-    },
-    email: req.body.email,
-    password: req.body.password,
-    zipCode: req.body.zipCode,
-  });
+  let userParams = new User(
+  // {
+  //   name: {
+  //     first: req.body.first,
+  //     last: req.body.last,
+  //   },
+  //   email: req.body.email,
+  //   password: req.body.password,
+  //   zipCode: req.body.zipCode,
+  // }
+  getUserParams(req.body)
+  );
   userParams.save((err, user) => {
     if (err) next(err);
     res.json(user);
