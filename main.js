@@ -39,10 +39,11 @@ app.get("/contact", homeController.showContact);
 app.get("/thanks", homeController.showThanks);
 app.get("/subscribers/", subscriberControlller.getAllSubscribers)
 app.get("/subscribers/new", subscriberControlller.subscriberPage)
-app.post("/subscribers/new", subscriberControlller.postSubscribers)
+app.post("/subscribers/create", subscriberControlller.postSubscribers)
 app.get('/users', userController.index)
 app.get('/users/new', userController.new)
 app.post('/users/create', userController.create)
+app.get('/users/:id', userController.show)
 
 app.use(errorController.respondNoResourceFound);
 
