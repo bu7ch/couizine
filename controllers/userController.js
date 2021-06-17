@@ -30,6 +30,7 @@ exports.create = (req, res, next) => {
     next();
   });
 };
+
 exports.show = (req, res, next) => {
   let userId = req.params.id;
   User.findById(userId, (err, user) => {
@@ -37,4 +38,27 @@ exports.show = (req, res, next) => {
     console.log(user);
     res.render("users/show", { user: user });
   });
+};
+
+exports.login = (req, res) => {
+  res.render("users/login");
+};
+
+exports.authenticate = (req, res, next) => {
+  User.findOne({ email: req.body.email })
+    .then((user) => {
+      user.passwordCompare(req.body.password)
+      .then(passwordsMatch => {
+        if (passwordsMatch) {
+          res.redirect(`/users/${user._id}`);
+          console.log('Connexion reussie!');
+      } else {
+        res.redirect("/users/login");
+        next();
+      }
+    })
+  })
+    .catch((err) => {
+      console.log(`Erreur de connexion : ${err.message}`);
+    });
 };

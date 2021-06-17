@@ -1,0 +1,9 @@
+extends ../layout
+block content
+  form(action="/users/login" method="POST")
+    h2 Connexion 
+    label(for="inputEmail") Votre adresse Mail
+    input(type="email", name="email" id="inputEmail") 
+    label(for="inputPasswrd") Votre  mot de passe
+    input(type="password", name="password" id="inputPassword") 
+    input(type="submit" value="Connexion") 

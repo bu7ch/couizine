@@ -1,5 +1,6 @@
 const mongoose = require("mongoose"),
   { Schema } = mongoose,
+  bcrypt = require("bcryptjs"),
   Subscriber = require("./subscriber");
 userSchema = new Schema(
   {
@@ -27,17 +28,36 @@ userSchema.virtual("fullname").get(function () {
   return `${this.name.first} ${this.name.last}`;
 });
 
-userSchema.pre("save", function(next) {
+userSchema.pre("save", function (next) {
+  let user = this;
+  bcrypt
+    .hash(user.password, 10)
+    .then((hash) => {
+      user.password = hash;
+      next();
+    })
+    .catch((err) => {
+      console.log(`Erreur de hashage :${err.message}`);
+      next(err);
+    });
+});
+
+userSchema.methods.passwordCompare = function(inputPassword){
+  let user = this;
+  return bcrypt.compare(inputPassword, user.password);
+};
+
+userSchema.pre("save", function (next) {
   let user = this;
   if (user.subscribedAccount === undefined) {
     Subscriber.findOne({
-      email: user.email
+      email: user.email,
     })
-      .then(subscriber => {
+      .then((subscriber) => {
         user.subscribedAccount = subscriber;
         next();
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(`Erreur sur l'inscrit: ${error.message}`);
         next(error);
       });
